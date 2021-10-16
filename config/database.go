@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/Bakhtiyar-Garashov/quote-service/models"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
@@ -40,6 +41,8 @@ func NewPostgresqlDb() PostgresqlDb {
 	if err != nil {
 		log.Println(fmt.Sprintf("Error connecting to database: %s", err))
 	}
+
+	conn.AutoMigrate(&models.User{}, &models.Quote{})
 
 	return &postgresqlDb{
 		db: conn,
