@@ -1,9 +1,6 @@
 package controllers
 
 import (
-	"fmt"
-	"reflect"
-
 	"github.com/Bakhtiyar-Garashov/quote-service/config"
 	"github.com/Bakhtiyar-Garashov/quote-service/dto"
 	"github.com/Bakhtiyar-Garashov/quote-service/models"
@@ -15,11 +12,12 @@ func CreateUser(c *gin.Context) {
 	userData := new(dto.UserCreate)
 
 	if err := c.ShouldBindJSON(userData); err != nil {
-		c.JSON(400, gin.H{"error": err.Error()})
+		c.JSON(400, gin.H{
+			"success": "false",
+			"message": err.Error(),
+		})
 		return
 	}
-
-	fmt.Println(reflect.TypeOf(userData))
 
 	user := &models.User{
 		Name:  userData.Name,
@@ -28,11 +26,10 @@ func CreateUser(c *gin.Context) {
 
 	userRepository := repositories.NewUserRepository(config.NewPostgresqlDb())
 
-	res := userRepository.Save(*user)
+	userRepository.Save(*user)
 
-	fmt.Println(res)
-
-	c.JSON(200, gin.H{
-		"message": "pong",
+	c.JSON(201, gin.H{
+		"success": "true",
+		"message": "User created successfully",
 	})
 }
