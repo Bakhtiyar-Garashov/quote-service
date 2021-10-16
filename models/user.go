@@ -1,10 +1,10 @@
 package models
 
 type User struct {
-	ID     uint    `gorm:"primary_key" json:"id"`
-	Name   string  `json:"name"`
-	Email  string  `json:"email"`
-	Quotes []Quote `json:"quotes"`
+	ID     uint    `gorm:"column:id;primary_key"`
+	Name   string  `gorm:"column:name"`
+	Email  string  `gorm:"column:email"`
+	Quotes []Quote `gotm:"column:quotes"`
 }
 
 func (t *User) TableName() string {

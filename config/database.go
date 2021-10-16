@@ -10,6 +10,14 @@ import (
 	"github.com/joho/godotenv"
 )
 
+type PostgresqlDb interface {
+	GetDB() *gorm.DB
+}
+
+type postgresqlDb struct {
+	db *gorm.DB
+}
+
 var db *gorm.DB
 
 func init() {

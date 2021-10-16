@@ -16,6 +16,7 @@ func main() {
 	v1 := router.Group("/api/v1")
 	{
 		v1.GET("/healthcheck", utils.HealthCheck)
+		//v1.POST("/users", controllers.CreateUser)
 		//v1.POST("/quote", rateLimit(), controllers.CreateQuote)
 	}
 
