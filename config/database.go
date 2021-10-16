@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/Bakhtiyar-Garashov/quote-service/models"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
@@ -44,6 +45,6 @@ func openDBConnection() interface{} {
 
 	db = conn
 	// TODO: migrate database
-	db.Debug().AutoMigrate()
+	db.Debug().AutoMigrate(&models.User{}, &models.Quote{})
 	return nil
 }
