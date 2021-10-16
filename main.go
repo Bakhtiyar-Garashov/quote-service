@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/Bakhtiyar-Garashov/quote-service/config"
+	"github.com/Bakhtiyar-Garashov/quote-service/controllers"
 	"github.com/Bakhtiyar-Garashov/quote-service/utils"
 	"github.com/gin-gonic/gin"
 
@@ -16,11 +17,11 @@ func main() {
 	v1 := router.Group("/api/v1")
 	{
 		v1.GET("/healthcheck", utils.HealthCheck)
-		//v1.POST("/users", controllers.CreateUser)
+		v1.POST("/users", controllers.CreateUser)
 		//v1.POST("/quote", rateLimit(), controllers.CreateQuote)
 	}
 
 	// initialize the Db connection and run migrations
-	config.GetDB()
+	config.NewPostgresqlDb().DB()
 	router.Run(":5000")
 }

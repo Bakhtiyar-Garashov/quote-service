@@ -2,37 +2,26 @@ package config
 
 import (
 	"fmt"
+	"log"
 	"os"
 
-	"github.com/Bakhtiyar-Garashov/quote-service/models"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
 )
 
 type PostgresqlDb interface {
-	GetDB() *gorm.DB
+	DB() *gorm.DB
 }
 
 type postgresqlDb struct {
 	db *gorm.DB
 }
 
-var db *gorm.DB
+func NewPostgresqlDb() PostgresqlDb {
+	var err error
+	var conn *gorm.DB
 
-func init() {
-	openDBConnection()
-}
-
-func GetDB() *gorm.DB {
-	// Make sure we are connected to a database
-	if err := db.DB().Ping(); err != nil {
-		openDBConnection()
-	}
-	return db
-}
-
-func openDBConnection() interface{} {
 	e := godotenv.Load()
 	if e != nil {
 		fmt.Print(e)
@@ -46,13 +35,18 @@ func openDBConnection() interface{} {
 
 	connectionString := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", dbHost, dbPort, username, dbName, password)
 
-	conn, err := gorm.Open("postgres", connectionString)
+	conn, err = gorm.Open("postgres", connectionString)
+
 	if err != nil {
-		fmt.Println("Error connecting to database: ", err)
+		log.Println(fmt.Sprintf("Error connecting to database: %s", err))
 	}
 
-	db = conn
-	// TODO: migrate database
-	db.Debug().AutoMigrate(&models.User{}, &models.Quote{})
-	return nil
+	return &postgresqlDb{
+		db: conn,
+	}
+
+}
+
+func (p *postgresqlDb) DB() *gorm.DB {
+	return p.db
 }

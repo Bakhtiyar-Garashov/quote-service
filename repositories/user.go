@@ -16,7 +16,7 @@ type userRepository struct {
 	DB config.PostgresqlDb
 }
 
-func NewUserRepostiory(DB config.PostgresqlDb) UserRepositoryInterface {
+func NewUserRepository(DB config.PostgresqlDb) UserRepositoryInterface {
 	return &userRepository{
 		DB: DB,
 	}
@@ -24,24 +24,24 @@ func NewUserRepostiory(DB config.PostgresqlDb) UserRepositoryInterface {
 
 func (u *userRepository) GetAll() []models.User {
 	var users []models.User
-	u.DB.GetDB().Find(&users)
+	u.DB.DB().Find(&users)
 
 	return users
 }
 
 func (u *userRepository) GetById(id uint) models.User {
 	var user models.User
-	u.DB.GetDB().First(&user, id)
+	u.DB.DB().First(&user, id)
 
 	return user
 }
 
 func (u *userRepository) Save(user models.User) models.User {
-	u.DB.GetDB().Save(&user)
+	u.DB.DB().Save(&user)
 
 	return user
 }
 
 func (u *userRepository) Delete(user models.User) {
-	u.DB.GetDB().Delete(&user)
+	u.DB.DB().Delete(&user)
 }
