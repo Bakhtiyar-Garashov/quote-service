@@ -11,3 +11,7 @@ type Quote struct {
 	EstimatedDeliveryTime time.Time `json:"estimated_delivery_time"`
 	UserID                uint      `json:"user_id"`
 }
+
+func (t *Quote) TableName() string {
+	return "quotes"
+}

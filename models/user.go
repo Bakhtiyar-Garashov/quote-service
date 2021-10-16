@@ -6,3 +6,7 @@ type User struct {
 	Email  string  `json:"email"`
 	Quotes []Quote `json:"quotes"`
 }
+
+func (t *User) TableName() string {
+	return "users"
+}
