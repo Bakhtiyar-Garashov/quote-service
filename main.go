@@ -18,6 +18,8 @@ func main() {
 		v1.GET("/healthcheck", utils.HealthCheck)
 		//v1.POST("/quote", rateLimit(), controllers.CreateQuote)
 	}
+
+	// initialize the Db connection and run migrations
 	config.GetDB()
 	router.Run(":5000")
 }
