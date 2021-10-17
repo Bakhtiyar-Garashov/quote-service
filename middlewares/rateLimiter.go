@@ -1,6 +1,7 @@
 package middlewares
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -14,16 +15,16 @@ import (
 )
 
 func RateLimiterMiddleware() gin.HandlerFunc {
-	lm := limiter.NewRateLimiter(time.Minute, 1, func(ctx *gin.Context) (string, error) {
+	lm := limiter.NewRateLimiter(time.Minute, 10, func(ctx *gin.Context) (string, error) {
 		b, err := ioutil.ReadAll(ctx.Request.Body)
-
-		ctx.Request.Close = true
-
-		quoteRequestBody := new(dto.QuoteRequest)
 
 		if err != nil {
 			fmt.Println("Couldn't parse request body:", err)
 		}
+
+		ctx.Request.Body = ioutil.NopCloser(bytes.NewBuffer(b))
+
+		quoteRequestBody := new(dto.QuoteRequest)
 
 		json.Unmarshal(b, quoteRequestBody)
 
