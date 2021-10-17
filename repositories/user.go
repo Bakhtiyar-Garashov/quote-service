@@ -24,7 +24,7 @@ func NewUserRepository(DB config.PostgresqlDb) UserRepositoryInterface {
 
 func (u *userRepository) GetAll() []models.User {
 	var users []models.User
-	u.DB.DB().Find(&users)
+	u.DB.DB().Select("*").Joins("JOIN users ON users.id = quotes.user_id").Find(&users)
 
 	return users
 }

@@ -33,3 +33,14 @@ func CreateUser(c *gin.Context) {
 		"message": "User created",
 	})
 }
+
+func GetAllUsers(c *gin.Context) {
+	userRepository := repositories.NewUserRepository(config.NewPostgresqlDb())
+	users := userRepository.GetAll()
+
+	c.JSON(201, gin.H{
+		"success": "true",
+		"message": "All users",
+		"data":    users,
+	})
+}
