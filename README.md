@@ -20,6 +20,6 @@ Steps to follow:
 
 2) Create Database with name of your choice
 
-3) Create `.env` file in the projects root directory and add your database connection params into. Please refer to `.env.example` file for required params
+3) Create `.env` file in the project's root directory and add your database connection params into. Please refer to `.env.example` file for required params
 
 4) Project entry point is main.go file. So, use `go run main.go` command
