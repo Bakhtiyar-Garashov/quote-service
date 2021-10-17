@@ -2,7 +2,7 @@
 
 Quote service is a part of payment system which can be used to create quotes by users for money transactions
 
-Altough this is my first Golang project after quite long time I have tried to structure the projects as 'clean' as I can.
+Altough this is my first Golang project after quite long time I have tried to structure the project as 'clean' as I can.
 
 Reference: <https://nurcahyaari.medium.com/how-i-implement-clean-code-architecture-on-golang-projects-68be58830621>
 
