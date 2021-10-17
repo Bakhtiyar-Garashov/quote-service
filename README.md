@@ -78,7 +78,9 @@ Next phase is creating a quote for already existing user profile. Use `POST` req
 
 Note that if you use an user id which is not exist it will handle this situation gracefully.
 
-According to the 2nd functionality it requires limiting the user creating no more than 10 quotes per minute. This part is a little bit challenging and can be solved in multiple ways. I believe **API rate limiting** concept is one of the best solutions for a feature like that. So, I have used a rate limiting go [package](https://github.com/julianshen/gin-limiter). This is very small package and provides a comfortable way of defining new limiter. I have added it as a middleware and only being called by the controller which is responsible for creating a new quote in the system. Package provides a way to easily establish limiter based on any parameter you want. For example, user's API or api_key. It is a perfect way to prevent abusing any endpoint.
+According to the 2nd functionality it requires limiting the user creating no more than 10 quotes per minute. This part is a little bit challenging and can be solved in multiple ways. I believe [**API rate limiting**](https://nordicapis.com/everything-you-need-to-know-about-api-rate-limiting/) concept is one of the best solutions for a feature like that. So, I have used a rate limiting go [package](https://github.com/julianshen/gin-limiter). This is very small package and provides a comfortable way of defining new limiter. I have added it as a middleware and only being called by the controller which is responsible for creating a new quote in the system. Package provides a way to easily establish limiter based on any parameter you want. For example, user's API or api_key. It is a perfect way to prevent abusing any endpoint.
+
+For testing 2nd functionality, please hit quote creating endpoint for the same user (by using the same user_id in your request body) 10 times. When you hit request for 11th times it will return `429 Too many requests` error.
 
 Furthermore, as a response for newly created quote the json schema as below will be returned:
 
