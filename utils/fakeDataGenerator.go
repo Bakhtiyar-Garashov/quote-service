@@ -6,10 +6,10 @@ import (
 	"time"
 )
 
-// Generates date between now and 2030
+// Generates future date (but before 2022)
 func GenerateRandomFutureDate() time.Time {
 	min := time.Now().Unix()
-	max := time.Date(2030, 1, 0, 0, 0, 0, 0, time.UTC).Unix()
+	max := time.Date(2021, 12, 31, 23, 59, 59, 0, time.UTC).Unix()
 	delta := max - min
 	sec := rand.Int63n(delta) + min
 	return time.Unix(sec, 0)
