@@ -3,7 +3,7 @@ package models
 import "time"
 
 type Quote struct {
-	ID                    uint      `json:"id" gorm:"primary_key"`
+	ID                    uint      `json:"id"`
 	CurrencySource        string    `json:"currency_source"`
 	CurrencyTarget        string    `json:"currency_target"`
 	Amount                float64   `json:"amount"`
