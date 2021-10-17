@@ -42,7 +42,7 @@ func NewPostgresqlDb() PostgresqlDb {
 		log.Println(fmt.Sprintf("Error connecting to database: %s", err))
 	}
 
-	conn.AutoMigrate(&models.User{}, &models.Quote{})
+	conn.Debug().AutoMigrate(&models.User{}, &models.Quote{})
 
 	return &postgresqlDb{
 		db: conn,

@@ -9,7 +9,7 @@ type Quote struct {
 	Amount                float64   `gorm:"column:amount"`
 	Fee                   float64   `gorm:"column:fee"`
 	EstimatedDeliveryTime time.Time `gorm:"column:estimated_delivery_time"`
-	UserID                uint      `gorm:"column:user_id"`
+	UserID                uint
 }
 
 func (t *Quote) TableName() string {
