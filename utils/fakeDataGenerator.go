@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"math"
 	"math/rand"
 	"time"
 )
@@ -15,5 +16,7 @@ func GenerateRandomFutureDate() time.Time {
 }
 
 func GenerateRandomFee() float64 {
-	return rand.Float64() * 100
+	x := rand.Float64() * 100
+	return math.Ceil(x*100) / 100
+
 }

@@ -30,6 +30,6 @@ func CreateUser(c *gin.Context) {
 
 	c.JSON(201, gin.H{
 		"success": "true",
-		"message": "User created successfully",
+		"message": "User created",
 	})
 }

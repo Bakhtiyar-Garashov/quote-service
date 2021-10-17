@@ -16,7 +16,7 @@ type quoteRepository struct {
 	DB config.PostgresqlDb
 }
 
-func NewProductRepository(DB config.PostgresqlDb) QuoteRepositoryInterface {
+func NewQuoteRepository(DB config.PostgresqlDb) QuoteRepositoryInterface {
 	return &quoteRepository{
 		DB: DB,
 	}
@@ -38,7 +38,6 @@ func (q *quoteRepository) GetById(id uint) models.Quote {
 
 func (q *quoteRepository) Save(quote models.Quote) models.Quote {
 	q.DB.DB().Save(&quote)
-
 	return quote
 }
 

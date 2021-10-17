@@ -3,7 +3,7 @@ package models
 import "time"
 
 type Quote struct {
-	ID                    uint      `gorm:"column:id;primary_key"`
+	ID                    uint      `gorm:"column:id;primary_key;AUTO_INCREMENT"`
 	CurrencySource        string    `gorm:"column:currency_source"`
 	CurrencyTarget        string    `gorm:"column:currency_target"`
 	Amount                float64   `gorm:"column:amount"`

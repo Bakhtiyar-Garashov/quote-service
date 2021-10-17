@@ -18,7 +18,7 @@ func main() {
 	{
 		v1.GET("/healthcheck", utils.HealthCheck)
 		v1.POST("/users", controllers.CreateUser)
-		//v1.POST("/quote", rateLimit(), controllers.CreateQuote)
+		v1.POST("/quote", controllers.CreateQuote)
 	}
 
 	// initialize the Db connection and run migrations
