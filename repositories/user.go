@@ -1,8 +1,6 @@
 package repositories
 
 import (
-	"fmt"
-
 	"github.com/Bakhtiyar-Garashov/quote-service/config"
 	"github.com/Bakhtiyar-Garashov/quote-service/models"
 )
@@ -26,8 +24,8 @@ func NewUserRepository(DB config.PostgresqlDb) UserRepositoryInterface {
 
 func (u *userRepository) GetAll() []models.User {
 	var users []models.User
-	u.DB.DB().Find(&users)
-	fmt.Println(users)
+	u.DB.DB().Table("users").Preload("Quotes").Find(&users)
+
 	return users
 }
 
