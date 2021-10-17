@@ -1,4 +1,4 @@
-# quote-service
+# Quote-service
 
 Quote service is a part of payment system which can be used to create quotes by users for money transactions
 
@@ -8,13 +8,13 @@ Reference: <https://nurcahyaari.medium.com/how-i-implement-clean-code-architectu
 
 If you want to get the project up and running:
 
-Requirements:
+## Minimal requirements
 
 1) Golang installed and configured properly
 
 2) PostgreSQL database server installed
 
-Steps to follow:
+## Steps to follow
 
 1) Download project
 
@@ -23,3 +23,7 @@ Steps to follow:
 3) Create `.env` file in the project's root directory and add your database connection params into. Please refer to `.env.example` file for required params
 
 4) Project entry point is main.go file. So, use `go run main.go` command
+
+## Todo
+
+- [ ] Add [swagger](https://github.com/swaggo/gin-swagger) API documentation
