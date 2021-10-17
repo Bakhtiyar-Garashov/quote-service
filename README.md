@@ -27,6 +27,7 @@ If you want to get the project up and running:
 ## Todo
 
 - [ ] Add [swagger](https://github.com/swaggo/gin-swagger) API documentation
+- [ ] Unit tests for prevent any bugs
 
 Firstly, create a user in the system via `POST` request to `http://localhost:5000/api/v1/users`. The endpoint expects 2 fields shown below as request body to create new user profile:
 
