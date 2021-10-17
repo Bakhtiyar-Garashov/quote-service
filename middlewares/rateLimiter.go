@@ -22,8 +22,8 @@ func RateLimiterMiddleware() gin.HandlerFunc {
 			fmt.Println("Couldn't parse request body:", err)
 		}
 
+		// Restore the request body reader to its original state
 		ctx.Request.Body = ioutil.NopCloser(bytes.NewBuffer(b))
-
 		quoteRequestBody := new(dto.QuoteRequest)
 
 		json.Unmarshal(b, quoteRequestBody)
