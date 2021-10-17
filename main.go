@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/Bakhtiyar-Garashov/quote-service/config"
 	"github.com/Bakhtiyar-Garashov/quote-service/controllers"
+	"github.com/Bakhtiyar-Garashov/quote-service/middlewares"
 	"github.com/Bakhtiyar-Garashov/quote-service/utils"
 	"github.com/gin-gonic/gin"
 
@@ -20,7 +21,7 @@ func main() {
 		v1.GET("/users", controllers.GetAllUsers)
 		v1.POST("/users", controllers.CreateUser)
 		v1.GET("/quotes", controllers.GetAllQuotes)
-		v1.POST("/quotes", controllers.CreateQuote)
+		v1.POST("/quotes", middlewares.RateLimiterMiddleware(), controllers.CreateQuote)
 
 	}
 

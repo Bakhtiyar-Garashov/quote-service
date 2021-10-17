@@ -11,7 +11,7 @@ import (
 
 func CreateQuote(c *gin.Context) {
 	newQuote := new(dto.QuoteRequest)
-
+	c.Request.Close = true
 	if err := c.ShouldBindJSON(newQuote); err != nil {
 		c.JSON(400, gin.H{
 			"success": "false",
