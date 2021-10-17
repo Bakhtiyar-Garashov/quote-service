@@ -20,6 +20,18 @@ func CreateQuote(c *gin.Context) {
 		return
 	}
 
+	userRepository := repositories.NewUserRepository(config.NewPostgresqlDb())
+
+	user := userRepository.GetById(newQuote.UserID)
+
+	if user.ID == 0 {
+		c.JSON(400, gin.H{
+			"success": "false",
+			"message": "This user doesn't exist",
+		})
+		return
+	}
+
 	quote := &models.Quote{
 		CurrencySource:        newQuote.SourceCurrency,
 		CurrencyTarget:        newQuote.TargetCurrency,
