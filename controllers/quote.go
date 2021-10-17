@@ -41,8 +41,6 @@ func CreateQuote(c *gin.Context) {
 		UserID:                newQuote.UserID,
 	}
 
-	// TODO: user ID is set even if user is not exist
-
 	quoteRepository := repositories.NewQuoteRepository(config.NewPostgresqlDb())
 
 	createdQuote := quoteRepository.Save(*quote)
