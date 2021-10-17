@@ -46,3 +46,14 @@ func CreateQuote(c *gin.Context) {
 		"data":    responseQuote,
 	})
 }
+
+func GetAllQuotes(c *gin.Context) {
+	quoteRepository := repositories.NewQuoteRepository(config.NewPostgresqlDb())
+	quotes := quoteRepository.GetAll()
+
+	c.JSON(201, gin.H{
+		"success": "true",
+		"message": "All quotes",
+		"data":    quotes,
+	})
+}
