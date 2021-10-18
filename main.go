@@ -25,7 +25,8 @@ func main() {
 
 	}
 
-	// initialize the Db connection and run migrations
+	// initialize the Db connection
 	config.NewPostgresqlDb().DB()
+	// fire up the server
 	router.Run(":5000")
 }
