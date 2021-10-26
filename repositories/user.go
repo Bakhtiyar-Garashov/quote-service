@@ -8,6 +8,7 @@ import (
 type UserRepositoryInterface interface {
 	GetAll() []models.User
 	GetById(id uint) models.User
+	GetByEmail(email string) models.User
 	Save(user models.User) models.User
 	Delete(user models.User)
 }
@@ -32,6 +33,13 @@ func (u *userRepository) GetAll() []models.User {
 func (u *userRepository) GetById(id uint) models.User {
 	var user models.User
 	u.DB.DB().First(&user, id)
+
+	return user
+}
+
+func (u *userRepository) GetByEmail(email string) models.User {
+	var user models.User
+	u.DB.DB().Where("email = ?", email).First(&user)
 
 	return user
 }

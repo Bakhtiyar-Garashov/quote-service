@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"fmt"
+
 	"github.com/Bakhtiyar-Garashov/quote-service/config"
 	"github.com/Bakhtiyar-Garashov/quote-service/dto"
 	"github.com/Bakhtiyar-Garashov/quote-service/models"
@@ -19,14 +21,24 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	user := &models.User{
+	user := models.User{
 		Name:  userData.Name,
 		Email: userData.Email,
 	}
 
 	userRepository := repositories.NewUserRepository(config.NewPostgresqlDb())
 
-	userRepository.Save(*user)
+	userByEmail := userRepository.GetByEmail(userData.Email)
+
+	if userByEmail.ID != 0 {
+		c.JSON(400, gin.H{
+			"success": "false",
+			"message": fmt.Sprintf("User with email %s already exists", userData.Email),
+		})
+		return
+	}
+
+	userRepository.Save(user)
 
 	c.JSON(201, gin.H{
 		"success": "true",
