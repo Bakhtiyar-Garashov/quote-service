@@ -1,4 +1,4 @@
-FROM golang:1.16
+FROM golang:1.20
 
 # Set the working directory inside the container
 WORKDIR /app

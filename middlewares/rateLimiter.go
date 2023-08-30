@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"strconv"
 	"time"
 
@@ -16,14 +16,13 @@ import (
 
 func RateLimiterMiddleware() gin.HandlerFunc {
 	lm := limiter.NewRateLimiter(time.Minute, 10, func(ctx *gin.Context) (string, error) {
-		b, err := ioutil.ReadAll(ctx.Request.Body)
-
+		b, err := io.ReadAll(ctx.Request.Body)
 		if err != nil {
 			fmt.Println("Couldn't parse request body:", err)
 		}
 
 		// Restore the request body reader to its original state
-		ctx.Request.Body = ioutil.NopCloser(bytes.NewBuffer(b))
+		ctx.Request.Body = io.NopCloser(bytes.NewBuffer(b))
 		quoteRequestBody := new(dto.QuoteRequest)
 
 		json.Unmarshal(b, quoteRequestBody)
@@ -34,7 +33,7 @@ func RateLimiterMiddleware() gin.HandlerFunc {
 			return key, nil
 		}
 
-		return "", errors.New("User id is missing")
+		return "", errors.New("user id is missing")
 	})
 	return lm.Middleware()
 

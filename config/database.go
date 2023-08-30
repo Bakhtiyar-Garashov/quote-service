@@ -35,11 +35,10 @@ func NewPostgresqlDb() PostgresqlDb {
 	dbPort := os.Getenv("DB_PORT")
 
 	connectionString := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", dbHost, dbPort, username, dbName, password)
-
 	conn, err = gorm.Open("postgres", connectionString)
 
 	if err != nil {
-		log.Println(fmt.Sprintf("Error connecting to database: %s", err))
+		log.Printf("Error connecting to database: %s", err)
 	}
 
 	conn.Debug().AutoMigrate(&models.User{}, &models.Quote{})
