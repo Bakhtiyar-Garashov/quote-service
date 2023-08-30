@@ -28,5 +28,5 @@ func main() {
 	// initialize the Db connection
 	config.NewPostgresqlDb().DB()
 	// fire up the server
-	router.Run(":5000")
+	router.Run(":8080")
 }
