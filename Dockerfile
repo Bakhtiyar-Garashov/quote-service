@@ -1,22 +1,24 @@
-FROM golang:1.20
+# Stage 1: Build the Go application
+FROM golang:1.20 AS build
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Go module files
-COPY go.mod go.sum ./
-
-# Download and install the Go dependencies
-RUN go mod download
-
-# Copy the rest of the application code
+# Copy the Go application source code
 COPY . .
 
-# Build the Go application
-RUN go build -o main .
+# Build the application
+RUN CGO_ENABLED=0 GOOS=linux go build -o myapp
 
-# Expose the port that the application will run on
+# Stage 2: Create the final minimal image
+FROM busybox:1.34
+
+WORKDIR /app
+
+# Copy the binary from the build stage
+COPY --from=build /app/myapp .
+
+# Expose any necessary ports
 EXPOSE 8080
 
 # Command to run the application
-CMD ["./main"]
+CMD ["./myapp"]
